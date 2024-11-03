@@ -4,22 +4,23 @@ use IEEE.STD_LOGIC_TEXTIO.ALL;
 use STD.TEXTIO.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
-entity Sorting_tb is
-end Sorting_tb;
+--entity Sorting_tb is
+--end Sorting_tb;
 
 architecture Behavioral of Sorting_tb is
   -- Constants and signals
   constant w : integer := 8;
-  constant k : integer := 4;
+  constant k : integer := 8;
 
   signal clk       : std_logic := '0';
   signal reset     : std_logic := '1';
-  signal DataIn    : std_logic_vector(w-1 downto 0);
   signal Radd      : std_logic_vector(k-1 downto 0);
+  signal DataIn    : std_logic_vector(w-1 downto 0);
+  signal DataOut   : std_logic_vector(w-1 downto 0);
+  signal Expected_Data    : std_logic_vector(w-1 downto 0);
   signal WrInit    : std_logic := '0';
   signal s         : std_logic := '0';
   signal Rd        : std_logic := '0';
-  signal DataOut   : std_logic_vector(w-1 downto 0);
   signal Done      : std_logic;
   file input_file    :   text;
   file expected_output_file : text;
@@ -60,8 +61,8 @@ begin
         variable space             :   character;
     
     Begin    
-        file_open(input_file, "input1.txt", READ_MODE);
---        file_open(expected_output_file, "expected_output.txt", READ_MODE);
+        file_open(input_file, "../test/input1.txt", READ_MODE);
+        
         
         reset <= '1';
         wait for 20 ns;
@@ -69,10 +70,14 @@ begin
         
         
         wait until falling_edge(clk);
+        
+        
+--        read file input
         s <= '0';
-      
         WrInit <= '1';
+        Rd <= '0';
         while not endfile(input_file) loop
+        wait until falling_edge(clk);
           readline(input_file, input_line);
 --          readline(expected_output_file, expected_line);
           
@@ -88,44 +93,55 @@ begin
         WrInit <= '0';
 
         file_close(input_file);
-        file_close(expected_output_file);
-        
-        wait until falling_edge(clk);
-        Rd <= '1';
-        for i in 0 to (2**(k-1) - 1) loop
-          Radd <= std_logic_vector(to_unsigned(i, k));
-          wait for 10 ns;
-        end loop;
-        Rd <= '0';
+       
         
         
         wait for 10 ns;
-        
         wait until falling_edge(clk);
+   
+   
         s <= '1';
-
+        WrInit <= '1';
         wait until Done = '1';
         s <= '0';
-
         
         
+        
+        file_open(expected_output_file, "../test/expected_output1.txt", READ_MODE);
+        
+        s <= '0';
+--        Rd <= '1';
+        while not endfile(expected_output_file) loop
         wait until falling_edge(clk);
-        Rd <= '1';
-        for i in 0 to (2**(k-1) - 1) loop
-          Radd <= std_logic_vector(to_unsigned(i, k));
+            Rd <= '1';
+--          readline(input_file, input_line);
+          readline(expected_output_file, expected_line);
+          
+          hread(expected_line, vRadd);
+          Radd <= vRadd;
+          
+          read(expected_line, space);
+          hread(expected_line, vDataIn);
+          
+          Expected_Data <= vDataIn;
           wait for 10 ns;
-        end loop;
+         end loop;
         Rd <= '0';
+        
+        
+--        check if write successfully
+--        wait until falling_edge(clk);
+--        for i in 0 to (2**4 - 1) loop
+--          wait until falling_edge(clk);
+--          Rd <= '1';
+--          Radd <= std_logic_vector(to_unsigned(i, k));
+--        end loop;
+--        Rd <= '0';
+        
+        
+        file_close(expected_output_file);
         
     wait;
     end process;
-    
-    
-    
-    
-    
-    
-    
-    
 
 end Behavioral;
