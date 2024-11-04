@@ -7,7 +7,7 @@ entity RAM is
   generic 
 	(
 w: integer := 8; --word size
-k: integer := 4 -- number of address bits
+k: integer := 8 -- number of address bits
 );
 port (
   DINA, DINB: in std_logic_vector(w-1 downto 0);

@@ -4,8 +4,8 @@ use IEEE.STD_LOGIC_TEXTIO.ALL;
 use STD.TEXTIO.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
---entity Sorting_tb is
---end Sorting_tb;
+entity Sorting_tb is
+end Sorting_tb;
 
 architecture Behavioral of Sorting_tb is
   -- Constants and signals
@@ -29,7 +29,7 @@ architecture Behavioral of Sorting_tb is
 begin 
     
     UUT:    entity work.Sorting
-    generic map(w => w, k => k)
+--    generic map(w => w, k => k)
     port map(
       clk => clk,
       reset => reset,
@@ -61,7 +61,7 @@ begin
         variable space             :   character;
     
     Begin    
-        file_open(input_file, "../test/input1.txt", READ_MODE);
+        file_open(input_file, "input1.txt", READ_MODE);
         
         
         reset <= '1';
@@ -107,7 +107,7 @@ begin
         
         
         
-        file_open(expected_output_file, "../test/expected_output1.txt", READ_MODE);
+        file_open(expected_output_file, "expected_output1.txt", READ_MODE);
         
         s <= '0';
 --        Rd <= '1';

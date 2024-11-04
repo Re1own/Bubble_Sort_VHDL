@@ -6,7 +6,7 @@ use IEEE.NUMERIC_STD.ALL;
 entity Datapath is
 generic(
 	w:integer := 8;
-	k:integer := 4
+	k:integer := 8
 );
   port (
   	clk: in std_logic;
