@@ -5,7 +5,7 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity Datapath is
 generic(
-	w:integer := 8;
+	w:integer := 16;
 	k:integer := 8
 );
   port (

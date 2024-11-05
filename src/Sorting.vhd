@@ -3,7 +3,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity Sorting is
   generic(
-   	w:integer := 8;
+   	w:integer := 16;
 	k:integer := 8
   );
   port(

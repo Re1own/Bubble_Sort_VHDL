@@ -9,7 +9,7 @@ end Sorting_tb;
 
 architecture Behavioral of Sorting_tb is
   -- Constants and signals
-  constant w : integer := 8;
+  constant w : integer := 16;
   constant k : integer := 8;
 
   signal clk       : std_logic := '0';
@@ -61,7 +61,7 @@ begin
         variable space             :   character;
     
     Begin    
-        file_open(input_file, "input1.txt", READ_MODE);
+        file_open(input_file, "input2.txt", READ_MODE);
         
         
         reset <= '1';
@@ -107,7 +107,7 @@ begin
         
         
         
-        file_open(expected_output_file, "expected_output1.txt", READ_MODE);
+        file_open(expected_output_file, "expected_output2.txt", READ_MODE);
         
         s <= '0';
 --        Rd <= '1';

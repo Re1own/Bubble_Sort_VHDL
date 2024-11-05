@@ -6,7 +6,7 @@ use IEEE.NUMERIC_STD.ALL;
 entity RAM is
   generic 
 	(
-w: integer := 8; --word size
+w: integer := 16; --word size
 k: integer := 8 -- number of address bits
 );
 port (
